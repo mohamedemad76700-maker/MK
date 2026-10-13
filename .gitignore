@@ -1,0 +1,14 @@
+# Secrets and runtime data
+.env
+.env.*
+!.env.example
+video_engine_backend/.env
+video_engine_backend/node_modules/
+video_engine_backend/dist/
+node_modules/
+dist-desktop/
+video_engine_backend/media/
+/backups/
+/logs/
+*.sql.gz
+*.tar.gz

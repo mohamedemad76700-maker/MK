@@ -1,0 +1,81 @@
+{
+  "name": "mk-school-ultra-desktop",
+  "version": "5.0.0",
+  "description": "MK School Ultra Enterprise Desktop & Web Application",
+  "main": "electron/main.js",
+  "scripts": {
+    "start": "node --env-file=.env node_modules/electron/cli.js .",
+    "backend:install": "cd video_engine_backend && npm install",
+    "backend:build": "cd video_engine_backend && npm run build",
+    "check:release": "node video_engine_backend/scripts/release-check.cjs",
+    "backend:start": "node --env-file=.env video_engine_backend/dist/main.js",
+    "app:dev": "npm run start",
+    "dist": "electron-builder --win --dir",
+    "dist:exe": "electron-builder --win nsis"
+  },
+  "keywords": [
+    "education",
+    "school-management",
+    "electron",
+    "ai",
+    "security"
+  ],
+  "author": "MK School Team",
+  "license": "Proprietary",
+  "engines": {
+    "node": ">=22"
+  },
+  "devDependencies": {
+    "electron": "^44.7.0",
+    "electron-builder": "^26.15.3"
+  },
+  "build": {
+    "appId": "com.mkschool.ultra",
+    "productName": "MK School Enterprise",
+    "files": [
+      "**/*",
+      "!**/.env",
+      "!**/.env.*",
+      "!video_engine_backend/**"
+    ],
+    "extraResources": [
+      {
+        "from": "video_engine_backend",
+        "to": "video_engine_backend",
+        "filter": [
+          "dist/**/*",
+          "migrations/**/*",
+          "scripts/init-env.cjs"
+        ]
+      },
+      {
+        "from": "video_engine_backend/node_modules",
+        "to": "video_engine_backend/node_modules",
+        "filter": [
+          "**/*"
+        ]
+      },
+      {
+        "from": "index.html",
+        "to": "site/index.html"
+      },
+      {
+        "from": "assets",
+        "to": "site/assets"
+      }
+    ],
+    "directories": {
+      "output": "dist-desktop"
+    },
+    "win": {
+      "target": [
+        "nsis",
+        "portable"
+      ],
+      "icon": "electron/icon.png"
+    }
+  },
+  "overrides": {
+    "global-agent": "4.0.0"
+  }
+}
